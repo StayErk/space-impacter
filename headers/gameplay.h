@@ -4,7 +4,7 @@
 #include<wchar.h>
 #include<time.h>
 #include<termios.h>
-#include<stropts.h>
+//#include<stropts.h>
 #include<locale.h>
 #include<unistd.h>
 #include<fcntl.h>
