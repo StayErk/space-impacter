@@ -118,6 +118,9 @@ void updateAmmo(game_t gameBoard[][COLUMS]){
 		if(*(posizione_temp) == 45){
 			gameBoard[*posizione_temp][*(posizione_temp+1)] = BK;
 		}
+		else if(gameBoard[*posizione_temp][*(posizione_temp+1)] == PL){
+			ammo_avaiable+=25;
+		}
 		else if(!(gameBoard[*posizione_temp][*(posizione_temp+1)] == BU)){
 			gameBoard[*posizione_temp][*(posizione_temp+1)] = BK;
 			gameBoard[(*posizione_temp)+1][*(posizione_temp+1)] = AM;
@@ -141,8 +144,10 @@ void updateAmmo(game_t gameBoard[][COLUMS]){
 }
 
 int *move_spaceCraft(game_t gameBoard[][COLUMS], int *x, int* y, int *lives){
-	char c, mv='s';
+	char c,  mv='s';
 	int *statistics=malloc(sizeof(int) * 3);
+	usleep(1599);
+	fflush(0);
 	read(0, &c, 1);
 	if(c == 'a' || c == 'd' || c == 'm')
 		mv = c;
@@ -164,6 +169,8 @@ int *move_spaceCraft(game_t gameBoard[][COLUMS], int *x, int* y, int *lives){
 			break;
 		case 'm':
 			fireProjectile(gameBoard, y, x);
+			break;
+		case 's':
 			break;
 	}
 	(*statistics) += 1;
@@ -220,7 +227,7 @@ int updateProjectile(game_t gameBoard[][COLUMS]){
 	{
 		posizione_temp = dequeue(projectiles);
 		//printf("POSIZIONE PROIETTILE: %d", *posizione_temp);
-		if (*posizione_temp == 23){
+		if (*posizione_temp == 17){
 		//	printf("\t23");
 			gameBoard[*posizione_temp][*(posizione_temp+1)] = BK;
 		}

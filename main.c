@@ -47,13 +47,16 @@ void reset_input_mode();
 int main (void)
 {
 	setlocale(LC_ALL, "");
-	char *playerName;
+	char *playerName, c;
 	int *statistics, *temp,lifes=5;
 	unsigned char startGame = 0;
 	int x_pos = 44, y_pos = 17;
 
 	statistics = malloc(sizeof(int) *3);
 	temp = malloc(sizeof(int) * 3);
+	fcntl(0, F_GETFL, 0);
+	fcntl(0, F_SETFL, O_NONBLOCK);
+
 	game_t gameBoard[ROWS][COLUMS]={
 	{UL, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, HB, UR},
 	{VB, BK, BK, BK, BK, BK, BK, BK, BK,BK, BK, BK, BK, BK, BK, BK, BK, BK, BK, BK, BK, BK, BK,BK, BK, BK, BK, BK, BK, BK, BK, BK, BK, VB},
@@ -112,14 +115,15 @@ int main (void)
 	{
 		spawnAsteroid(gameBoard);
 		spawnAmmo(gameBoard);	
+	  	system("clear");
+//		printf("Ho letto\n");
 		temp = move_spaceCraft(gameBoard, &x_pos, &y_pos, &lifes); 
 		*statistics += *temp;
 		*(statistics+1) = *(temp+1);
 		*(statistics+2) = *(temp+2);
-	  	system("clear");
 	//	print_spaceCraft(gameBoard, &x_pos, &y_pos);
 		print_gameboard(gameBoard, statistics, &lifes);
-		usleep(500);
+		usleep(105000);
 	}
 	reset_input_mode();
 	return 0;
