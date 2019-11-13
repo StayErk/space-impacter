@@ -15,4 +15,5 @@ d: move right
 
 m: fire
 
-
+### Note
+do not long press.
